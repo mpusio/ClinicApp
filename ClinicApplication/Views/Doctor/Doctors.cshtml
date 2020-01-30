@@ -1,0 +1,31 @@
+@using ClinicApp.Models
+@model List<Doctor>
+@{
+    ViewBag.Title = "Doctors";
+    Layout = "_Layout";
+}
+
+<h2>Avaible doctors:</h2>
+<h1>@Model.Count</h1>
+
+@foreach (var doctor in Model)
+{
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => doctor.FirstName)<br/>
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => doctor.LastName)<br/>
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => doctor.Telephone)<br/>
+        </td>
+        <td>
+            <a class="btn btn-danger" role="button" asp-area="" asp-controller="Doctor" asp-action="DoctorsById" asp-route-id="@doctor.Id">Sprawdź szczegóły</a><br/>
+        </td>
+    </tr>
+}
+
+
+
+

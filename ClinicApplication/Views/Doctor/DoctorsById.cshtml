@@ -1,0 +1,49 @@
+@using ClinicApp.Models
+@model ClinicApp.Models.Doctor
+
+@{
+    ViewBag.Title = "Doctor";
+    Layout = "_Layout";
+}
+
+@{
+    var doctors = (List<Doctor>)ViewData["Doctors"];
+    foreach (Doctor doctor in doctors)
+    {
+        <h2>Doctor @doctor.FirstName. @doctor.LastName</h2>
+        <h2>@doctor.Telephone</h2>
+        
+        <h2>Zabiegi: </h2>
+        <ul>
+            @foreach (MedicalService service in doctor.MedicalServices)
+            {
+                <li>@service.Description @service.Price</li>
+            }
+        </ul>
+
+        <h2>Biura: </h2>
+        <ul>
+            @foreach (Office office in doctor.Offices)
+            {
+                <li>@office.Street @office.Number</li>
+                <li>@office.PostCode  @office.City</li>
+                <li>Tel. @office.Telephone</li>
+            }
+        </ul>
+        
+        @if (User.IsInRole("Admin"))
+        {
+            <form method="post">
+                <button type="submit" class="btn btn-success" 
+                        asp-controller="Doctor" 
+                        asp-action="OnDelete" 
+                        asp-route-id="@doctor.Id">Deleted doctor</button>
+            </form> 
+        }
+    }
+}
+
+
+
+
+
